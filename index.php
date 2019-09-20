@@ -26,9 +26,17 @@
   }
   </style>
  </head>
+ <?php
+    session_start();
+    if(empty($_SESSION['username'])){
+    header('location: login_form.php');    
+    } else {
+    echo '<a href="logout.php">logout</a>';
+}
+?>
  <body>
   <div class="container box">
-   <h1 align="center">Live Add Edit Delete Datatables Records using PHP Ajax</h1>
+   <h1 align="center">Contacts</h1>
    <br />
    <div class="table-responsive">
    <br />

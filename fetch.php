@@ -1,5 +1,6 @@
 <?php
 //fetch.php
+session_start();
 $connectionInfo = array("UID" => "colin@contactmanager", "pwd" => "{COP4331proj}", "Database" => "information", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
  $serverName = "tcp:contactmanager.database.windows.net,1433";
   $connect = sqlsrv_connect($serverName, $connectionInfo);
@@ -10,7 +11,7 @@ $connectionInfo = array("UID" => "colin@contactmanager", "pwd" => "{COP4331proj}
  }
 $query = "SELECT * FROM CONTACTS ";
 
-$columns = array('firstname', 'lastname', 'email', 'phone', 'street_address');
+$columns = array('firstname', 'lastname', 'email', 'phone', 'street_address', 'ID');
 
 if(isset($_POST["search"]["value"]))
 {
@@ -39,8 +40,8 @@ if($_POST["length"] != -1)
 {
  $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
-
-$query = "SELECT * FROM CONTACTS ";
+$ID = $_SESSION['ID'];
+$query = "SELECT * FROM CONTACTS WHERE ID = '$ID'";
 $result = sqlsrv_query($connect,$query);
 $number_filter_row = sqlsrv_num_rows(sqlsrv_query($connect, $query));
 $data = array();

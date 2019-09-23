@@ -24,7 +24,7 @@ $email = filter_var($email, FILTER_SANITIZE_EMAIL); // Sanitizing email(Remove u
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
 echo "Invalid Email.......";
 }else{
-$result = sqlsrv_query($conn,"SELECT * FROM userinfo WHERE email='$email'");
+$result = sqlsrv_query($conn,"SELECT * FROM userinfo WHERE email='$email' and username = '$name' ");
 $data = sqlsrv_num_rows($result);
 if(($data)==0){
 $query = sqlsrv_query($conn,"insert into userinfo(username, email, firstname, lastname, passwords) values ('$name', '$email', '$fname','$lname','$password')"); // Insert query

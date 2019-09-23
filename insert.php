@@ -23,10 +23,16 @@ if(isset($_POST["first_name"], $_POST["last_name"]))
  $email = sanitize_input($_POST["email"]);
  $phone = sanitize_input($_POST["phone"]);
  $street_address = sanitize_input($_POST["street_address"]);
+ $email = filter_var($email, FILTER_SANITIZE_EMAIL); // Sanitizing email(Remove unexpected symbol like <,>,?,#,!, etc.)
+ if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+ echo "Invalid Email.......";
+ }
+ else{
  $query = "INSERT INTO CONTACTS(firstname, lastname, phone, email, street_address, ID) VALUES('$first_name', '$last_name', '$email', '$phone', '$street_address','$ID')";
  if(sqlsrv_query($connect, $query))
  {
   echo 'Data Inserted';
  }
+}
 }
 ?>
